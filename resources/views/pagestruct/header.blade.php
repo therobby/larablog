@@ -13,5 +13,6 @@
             @endauth
         </div>
     @endif
+    <a href="/post/create">Nowy</a>
 </nav>
 

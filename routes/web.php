@@ -19,7 +19,11 @@ use App\Http\Controllers\BlogPostController;
 
 Route::get('/', [HomeController::class, 'index']);
 
-Route::get('/post/{id}', [BlogPostController::class, 'index']);
+Route::post('/post/create', [BlogPostController::class, 'create']);
+Route::get('/post/create', [BlogPostController::class, 'createIndex']);
+
+Route::get('/post/get/{id}', [BlogPostController::class, 'index']);
+
 
 // Route::get('/', function () {
 //     return view('main');

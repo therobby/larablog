@@ -18,4 +18,31 @@ class BlogPostController extends Controller
             return view('404');
         }
     }
+
+    public function createIndex() {
+        return view('blog.edit')
+            ->with('title', "")
+            ->with('body', "");
+    }
+
+    public function create(Request $request) {
+        if($request->has(["title", "body"])){
+            $title = $request->input('title');
+            $body = $request->input('body');
+            var_dump($title);
+            var_dump($body);
+
+            $newPost = new BlogPost;
+
+            $newPost->title = $title;
+            $newPost->body = $body;
+            $newPost->owner_id = 1; // TODO: temporal
+
+            $newPost->save();
+            
+            return redirect('/');
+        } else{
+            return view('404');
+        }
+    }
 }

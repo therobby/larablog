@@ -7,8 +7,23 @@ use App\Models\BlogPost;
 
 class HomeController extends Controller
 {
-    
-    public function index() {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function index()
+    {
         $posts = BlogPost::all();
 
         for($i=0; $i < count($posts); $i++){
@@ -16,6 +31,7 @@ class HomeController extends Controller
         }
 
         return view('main')
-            ->with('posts', $posts); 
+            ->with('posts', $posts)
+            ->with('auth', auth()->check());
     }
 }

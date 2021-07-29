@@ -1,17 +1,10 @@
-<nav class="bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-400" style="border-bottom-style: solid; border-bottom-width: 1px;">
+<nav class="bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-400" style="border-bottom-style: solid; border-bottom-width: 1px; display: flex; align-items: center; justify-content: space-between;">
     <h1 style="margin: 0;"><a href="/">Blogi</a></h1>
-    @if (Route::has('login'))
-        <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
-            @auth
-                <a href="{{ url('/logout') }}" class="text-sm text-gray-700 underline">Log out</a>
-            @else
-                <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Log in</a>
-
-                @if (Route::has('register'))
-                    <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">Register</a>
-                @endif
-            @endauth
-        </div>
+    @if(isset($auth) && $auth)
+        <a href="/logout">Wyloguj</a>
+    @else
+        <a href="/login">Zaloguj</a>
+        <a href="/register">Zarejestruj</a>
     @endif
     <a href="/post/create">Nowy</a>
 </nav>

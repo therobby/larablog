@@ -19,7 +19,7 @@ class BlogPostController extends Controller
         }
     }
 
-    public function createIndex() {
+    public function showCreate() {
         return view('blog.edit')
             ->with('title', "")
             ->with('body', "");

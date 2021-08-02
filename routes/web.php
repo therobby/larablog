@@ -20,16 +20,19 @@ use App\Http\Controllers\UserController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::post('/post/create', [BlogPostController::class, 'create']);
-Route::get('/post/create', [BlogPostController::class, 'showCreate']);
+Route::post('/post/create', [BlogPostController::class, 'create'])->middleware('auth');
+Route::get('/post/create', [BlogPostController::class, 'showCreate'])->middleware('auth');
 
 Route::get('/post/get/{id}', [BlogPostController::class, 'index']);
+Route::post('/post/{id}/comment', [BlogPostController::class, 'addComment'])->middleware('auth');
 
-Route::get('/login', [UserController::class, 'showLogin']);
+Route::get('/login', [UserController::class, 'showLogin'])->name('login');
 Route::post('/login', [UserController::class, 'auth']);
 
 Route::get('/register', [UserController::class, 'showRegister']);
 Route::post('/register', [UserController::class, 'registerUser']);
+
+Route::post('/logout', [UserController::class, 'logout']);
 
 // Route::get('/', function () {
 //     return view('main');

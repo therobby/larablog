@@ -19,7 +19,7 @@ class CreateBlogPostsTable extends Migration
 
             $table->text('title');
             $table->text('body');
-            $table->text('owner_id');
+            $table->bigInteger('owner_id');
         });
     }
 

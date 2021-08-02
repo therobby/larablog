@@ -15,7 +15,7 @@
                                 <p>{{$post->body}}</p>
                                 <a href="/post/get/{{$post->id}}">Zobacz więcej ></a>
                         </div>
-                        <br />
+                        <br>
                         @endforeach
                 </div>
         </div>

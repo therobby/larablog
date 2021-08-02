@@ -8,11 +8,29 @@
                         Utworzono: 
                         <div name="date_created" style="padding: 0 10px 0 5px;">{{date(DATE_ATOM,strtotime($post->created_at))}}</div> 
                         Aktualizacja:
-                         <div name="date_updated" style="padding: 0 0 0 5px;">{{date(DATE_ATOM,strtotime($post->updated_at))}}</div>
+                        <div name="date_updated" style="padding: 0 0 0 5px;">{{date(DATE_ATOM,strtotime($post->updated_at))}}</div>
                 </div>
                 <p>{{$post->body}}</p>
+                <hr style="border-width: 1px;">
+                @if(isset($auth) && $auth)
+                    Napisz komentarz:
+                        <br>
+                    <form action="/post/{{$post->id}}/comment" method="POST">
+                        {{csrf_field()}}
+                            <input type="text" name="comment">
+                            <input type="submit" value="Wyślij">
+                    </form>
+                @else
+                    Aby zamieścić komentarz, musisz się zalogować.
+                @endif
+                <br>
+                @foreach ($comments as $comment)
+                <div style="border: 1px; border-style: groove; border-radius: 5px; padding: 5px">
+                        <small>Author: {{$comment->user->name}} &emsp; Date: {{$comment->created_at}}</small>
+                        <p>{{$comment->body}}</p>
+                </div>
+                @endforeach
             </div>
-            <br />
         </div>
     </div>
     <script>

@@ -2,10 +2,10 @@
     <h1 style="margin: 0;"><a href="/">Blogi</a></h1>
     @if(isset($auth) && $auth)
         <a href="/logout">Wyloguj</a>
+        <a href="/post/create">Nowy</a>
     @else
         <a href="/login">Zaloguj</a>
         <a href="/register">Zarejestruj</a>
     @endif
-    <a href="/post/create">Nowy</a>
 </nav>
 

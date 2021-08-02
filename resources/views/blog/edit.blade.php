@@ -4,10 +4,10 @@
                 <form action="/post/create" method="post" style="display: contents;">
                 {{csrf_field()}}
                 Title: <input value="{{$title}}" name="title">
-                <br />
+                <br>
                 {{-- <small>Utworzono: {{$post->created_at}} Aktualizacja: {{$post->updated_at}}</small> --}}
                 <textarea name="body" rows="10" style="resize: vertical">{{$body}}</textarea>
-                <br />
+                <br>
                 <input type="submit" value="Zapisz">
                 </form>
             </div>

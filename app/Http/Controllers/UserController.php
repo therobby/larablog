@@ -77,4 +77,21 @@ class UserController extends Controller
     public function showRegister() {
         return view('user.register');
     }
+
+    public function logout(Request $request) {
+        if(auth()->check()){
+            auth()->logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+        }
+        return redirect("/");
+    }
+
+    public function updateUserData(Request $request) {
+        throw new ErrorException("todo");
+    }
+
+    public function deleteAccount(Request $request) {
+        throw new ErrorException("todo");
+    }
 }

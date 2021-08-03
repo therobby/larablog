@@ -18,6 +18,7 @@ class BlogPostController extends Controller
             return view('blog.view')
                 ->with('post', $post)
                 ->with('comments', $comments)
+                ->with('user_id', auth()->id())
                 ->with('auth', auth()->check());
                 // TODO: Add comments
         } else {
@@ -59,6 +60,14 @@ class BlogPostController extends Controller
             $comment->owner_id = auth()->id();
             $comment->post_id = $id;
             $comment->save();
+        }
+        return redirect()->back();
+    }
+
+    public function deleteComment(Request $request, $comment_id){
+        $comment = PostCommentModel::where(['owner_id' => auth()->id(), 'id' => $comment_id])->first();
+        if($comment){
+            $comment->delete();
         }
         return redirect()->back();
     }

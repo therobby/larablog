@@ -26,6 +26,8 @@ Route::get('/post/create', [BlogPostController::class, 'showCreate'])->middlewar
 Route::get('/post/get/{id}', [BlogPostController::class, 'index']);
 Route::post('/post/{id}/comment', [BlogPostController::class, 'addComment'])->middleware('auth');
 
+Route::post('/comment/{comment_id}/delete', [BlogPostController::class, 'deleteComment'])->middleware('auth');
+
 Route::get('/login', [UserController::class, 'showLogin'])->name('login');
 Route::post('/login', [UserController::class, 'auth']);
 

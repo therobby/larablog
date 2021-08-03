@@ -28,6 +28,12 @@
                 <div style="border: 1px; border-style: groove; border-radius: 5px; padding: 5px">
                         <small>Author: {{$comment->user->name}} &emsp; Date: {{$comment->created_at}}</small>
                         <p>{{$comment->body}}</p>
+                        @if ($comment->user->id == $user_id)
+                            <form action="/comment/{{$comment->id}}/delete" method="post">
+                                {{csrf_field()}}
+                                <input type="submit" value="Usuń">
+                            </form> 
+                        @endif
                 </div>
                 @endforeach
             </div>

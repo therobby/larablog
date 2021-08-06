@@ -25,6 +25,9 @@ Route::get('/post/create', [BlogPostController::class, 'showCreate'])->middlewar
 
 Route::get('/post/get/{id}', [BlogPostController::class, 'index']);
 Route::post('/post/{id}/comment', [BlogPostController::class, 'addComment'])->middleware('auth');
+Route::get('/post/{id}/edit', [BlogPostController::class, 'getEditPost'])->middleware('auth');
+Route::post('/post/{id}/edit', [BlogPostController::class, 'saveEditPost'])->middleware('auth');
+Route::get('/post/{id}/delete', [BlogPostController::class, 'deletePost'])->middleware('auth');
 
 Route::post('/comment/{comment_id}/delete', [BlogPostController::class, 'deleteComment'])->middleware('auth');
 

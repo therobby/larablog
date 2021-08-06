@@ -14,15 +14,22 @@ class BlogPostController extends Controller
         $post = BlogPost::where(['id' => $id])->first();
         $comments = PostCommentModel::where(['post_id' => $id])->get();
 
+        $is_logged_in = auth()->check();
+        $admin = false;
+        if($is_logged_in){
+            $admin = auth()->user()->admin;
+        }
+
         if($post){
             return view('blog.view')
                 ->with('post', $post)
                 ->with('comments', $comments)
+                ->with('author', auth()->id() == $post->owner_id)
+                ->with('is_admin', $admin)
                 ->with('user_id', auth()->id())
-                ->with('auth', auth()->check());
-                // TODO: Add comments
+                ->with('auth', $is_logged_in);
         } else {
-            return view('404');
+            return view('400');
         }
     }
 
@@ -36,20 +43,18 @@ class BlogPostController extends Controller
         if($request->has(["title", "body"])){
             $title = $request->input('title');
             $body = $request->input('body');
-            var_dump($title);
-            var_dump($body);
 
             $newPost = new BlogPost;
 
             $newPost->title = $title;
             $newPost->body = $body;
-            $newPost->owner_id = auth()->id;
+            $newPost->owner_id = auth()->id();
 
             $newPost->save();
             
             return redirect('/');
         } else{
-            return view('404');
+            return view('400');
         }
     }
 
@@ -70,5 +75,41 @@ class BlogPostController extends Controller
             $comment->delete();
         }
         return redirect()->back();
+    }
+
+    public function getEditPost(Request $request, $id){
+
+        $post = BlogPost::where(['id' => $id])->first();
+        
+        if($post){
+            return view('blog.edit')
+                ->with('title', $post->title)
+                ->with('body', $post->body)
+                ->with('auth', auth()->check())
+                ->with('id', $id);
+        } else {
+            return view('400');
+        }
+    }
+
+    public function saveEditPost(Request $request, $id){
+        $post = BlogPost::where(['id' => $id])->first();
+
+        if($request->has(['title', 'body'])){
+            $post->title = $request->input('title');
+            $post->body = $request->input('body');
+            $post->save();
+            return redirect('/post/get/'.$id);
+        } else {
+            return view('400');
+        }
+    }
+
+    public function deletePost(Request $request, $id){
+        $post = BlogPost::where(['id' => $id])->first();
+        if($post){
+            $post->delete();
+        }
+        return redirect('/');
     }
 }

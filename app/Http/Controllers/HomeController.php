@@ -27,7 +27,8 @@ class HomeController extends Controller
         $posts = BlogPost::all();
 
         for($i=0; $i < count($posts); $i++){
-            $posts[$i]->body = substr($posts[$i]->body, 0, 50) . "...";
+            if(strlen($posts[$i]->body) > 50)
+                $posts[$i]->body = substr($posts[$i]->body, 0, 50) . "...";
         }
 
         return view('main')
